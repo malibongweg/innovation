@@ -1,0 +1,27 @@
+@font-face {
+    font-family: "card-font";
+    src: url('/scripts/idphoto/TradeBold.ttf') format("truetype");
+}
+
+.noprint{
+	display: none;
+}
+
+.rotate {
+
+/* Safari */
+-webkit-transform: rotate(270deg);
+
+/* Firefox */
+-moz-transform: rotate(270deg);
+
+/* IE */
+-ms-transform: rotate(270deg);
+
+/* Opera */
+-o-transform: rotate(270deg);
+
+/* Internet Explorer */
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+
+}

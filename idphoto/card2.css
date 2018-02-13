@@ -1,0 +1,22 @@
+@font-face {
+    font-family: "card-font";
+    src: url('/scripts/idphoto/TradeBold.ttf') format("truetype");
+}
+
+.noprint{
+	display: none;
+}
+
+.label-rotate {
+-webkit-transform: rotate(270deg);
+-moz-transform: rotate(270deg);
+-ms-transform: rotate(270deg);
+-o-transform: rotate(270deg);
+transform: rotate(270deg);
+
+width: 100%; 
+height: auto;
+font-weight: bold;
+position: absolute;
+
+}

@@ -1,0 +1,6 @@
+select a.id,b.description as failure_reason,c.description as severity,d.system_name,a.start_date
+from cput_service_failure a 
+left outer join cput_service_failure_codes b on (a.failure_reason = b.id)
+left outer join cput_service_failure_severity c on (a.severity_code = c.id)
+left outer join change_control.cts_systems d on (a.system_id = d.system_no)
+where year(a.start_date) = year(now()) and month(a.start_date) = month(now())			  sdddd

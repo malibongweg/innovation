@@ -1,0 +1,5 @@
+#!/bin/sh
+echo 0
+mysql -h localhost -u opa_cput --password=hp9000s -e "$1" blackbox | tail -1
+echo 0
+echo "Queued Items"

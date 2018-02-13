@@ -1,0 +1,32 @@
+@font-face {
+    font-family: "card-font";
+    src: url('/scripts/idphoto/TradeGothic.ttf') format("truetype");
+}
+
+#camera, #canvas {
+	width: 320px;
+	height: 240px;
+	border:10px solid #333;
+	background:#eee;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	margin-bottom: 5px;
+}
+
+
+/*#camera a > img {
+	border:0px none;
+}*/
+
+#canvas {
+	border:10px solid #ccc;
+	background:#eee;
+}
+
+
+object {
+	display:block; 
+	position:relative;
+	z-index:1000;
+}

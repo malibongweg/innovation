@@ -1,0 +1,2 @@
+cd /opt/scripts/expire_account
+php go.php

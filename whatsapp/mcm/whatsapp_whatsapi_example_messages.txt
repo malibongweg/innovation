@@ -1,0 +1,274 @@
+// This file is part of a tutorial on the blog of Philipp C. Heckel, July 2013
+// http://blog.philippheckel.com/2013/07/07/send-whatsapp-messages-via-php-script-using-whatsapi/
+
+ProtocolNode Object
+(
+    [_tag] => message
+    [_attributeHash] => Array
+        (
+            [from] => 4966633333333@s.whatsapp.net
+            [id] => 3734440972
+            [type] => notification
+            [t] => 1373081670
+            [retry] => 2
+        )
+
+    [_children] => Array
+        (
+            [0] => ProtocolNode Object
+                (
+                    [_tag] => notify
+                    [_attributeHash] => Array
+                        (
+                            [xmlns] => urn:xmpp:whatsapp
+                            [name] => 4977788888888
+                        )
+
+                    [_children] => 
+                    [_data] => 
+                )
+
+            [1] => ProtocolNode Object
+                (
+                    [_tag] => request
+                    [_attributeHash] => Array
+                        (
+                            [xmlns] => urn:xmpp:receipts
+                        )
+
+                    [_children] => 
+                    [_data] => 
+                )
+
+            [2] => ProtocolNode Object
+                (
+                    [_tag] => notification
+                    [_attributeHash] => Array
+                        (
+                            [type] => contacts
+                        )
+
+                    [_children] => Array
+                        (
+                            [0] => ProtocolNode Object
+                                (
+                                    [_tag] => remove
+                                    [_attributeHash] => Array
+                                        (
+                                            [jid] => 4977788888888@s.whatsapp.net
+                                        )
+
+                                    [_children] => 
+                                    [_data] => 
+                                )
+
+                        )
+
+                    [_data] => 
+                )
+
+            [3] => ProtocolNode Object
+                (
+                    [_tag] => offline
+                    [_attributeHash] => Array
+                        (
+                        )
+
+                    [_children] => 
+                    [_data] => 
+                )
+
+        )
+
+    [_data] => 
+)
+ProtocolNode Object
+(
+    [_tag] => message
+    [_attributeHash] => Array
+        (
+            [from] => 4966633333333@s.whatsapp.net
+            [id] => 4057359095
+            [type] => notification
+            [t] => 1373126696
+        )
+
+    [_children] => Array
+        (
+            [0] => ProtocolNode Object
+                (
+                    [_tag] => notify
+                    [_attributeHash] => Array
+                        (
+                            [xmlns] => urn:xmpp:whatsapp
+                            [name] => 498887777777
+                        )
+
+                    [_children] => 
+                    [_data] => 
+                )
+
+            [1] => ProtocolNode Object
+                (
+                    [_tag] => request
+                    [_attributeHash] => Array
+                        (
+                            [xmlns] => urn:xmpp:receipts
+                        )
+
+                    [_children] => 
+                    [_data] => 
+                )
+
+            [2] => ProtocolNode Object
+                (
+                    [_tag] => notification
+                    [_attributeHash] => Array
+                        (
+                            [type] => contacts
+                        )
+
+                    [_children] => Array
+                        (
+                            [0] => ProtocolNode Object
+                                (
+                                    [_tag] => add
+                                    [_attributeHash] => Array
+                                        (
+                                            [jid] => 498887777777@s.whatsapp.net
+                                        )
+
+                                    [_children] => 
+                                    [_data] => 
+                                )
+
+                        )
+
+                    [_data] => 
+                )
+
+            [3] => ProtocolNode Object
+                (
+                    [_tag] => offline
+                    [_attributeHash] => Array
+                        (
+                        )
+
+                    [_children] => 
+                    [_data] => 
+                )
+
+        )
+
+    [_data] => 
+)
+ProtocolNode Object
+(
+    [_tag] => message
+    [_attributeHash] => Array
+        (
+            [from] => 491231234567@s.whatsapp.net
+            [type] => chat
+            [t] => 1373205612
+        )
+
+    [_children] => Array
+        (
+            [0] => ProtocolNode Object
+                (
+                    [_tag] => composing
+                    [_attributeHash] => Array
+                        (
+                            [xmlns] => http://jabber.org/protocol/chatstates
+                        )
+
+                    [_children] => 
+                    [_data] => 
+                )
+
+        )
+
+    [_data] => 
+)
+ProtocolNode Object
+(
+    [_tag] => message
+    [_attributeHash] => Array
+        (
+            [from] => 491231234567@s.whatsapp.net
+            [id] => 1373204559-6
+            [type] => chat
+            [t] => 1373205620
+        )
+
+    [_children] => Array
+        (
+            [0] => ProtocolNode Object
+                (
+                    [_tag] => notify
+                    [_attributeHash] => Array
+                        (
+                            [xmlns] => urn:xmpp:whatsapp
+                            [name] => Philipp
+                        )
+
+                    [_children] => 
+                    [_data] => 
+                )
+
+            [1] => ProtocolNode Object
+                (
+                    [_tag] => request
+                    [_attributeHash] => Array
+                        (
+                            [xmlns] => urn:xmpp:receipts
+                        )
+
+                    [_children] => 
+                    [_data] => 
+                )
+
+            [2] => ProtocolNode Object
+                (
+                    [_tag] => body
+                    [_attributeHash] => Array
+                        (
+                        )
+
+                    [_children] => 
+                    [_data] => Hallo blog readers
+                )
+
+        )
+
+    [_data] => 
+)
+ProtocolNode Object
+(
+    [_tag] => message
+    [_attributeHash] => Array
+        (
+            [from] => 491231234567@s.whatsapp.net
+            [type] => chat
+            [t] => 1373205620
+        )
+
+    [_children] => Array
+        (
+            [0] => ProtocolNode Object
+                (
+                    [_tag] => paused
+                    [_attributeHash] => Array
+                        (
+                            [xmlns] => http://jabber.org/protocol/chatstates
+                        )
+
+                    [_children] => 
+                    [_data] => 
+                )
+
+        )
+
+    [_data] => 
+)
+

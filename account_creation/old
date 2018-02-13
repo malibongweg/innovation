@@ -1,0 +1,185 @@
+<?php
+require_once($_SERVER['DOCUMENT_ROOT']."/scripts/system/functions.php");
+$dbo =& JFactory::getDBO();
+$user = & JFactory::getUser();
+$dbo->setQuery("select host,connect_string,user_name,password,disaster_host,disaster_connect_string,disaster_user_name,disaster_password,system_mode,log_only from cput_system_setup where system_name='its'");
+$row = $dbo->loadObject();
+$oci_host = $row->host;
+$oci_connect_string = $row->connect_string;
+$oci_user = $row->user_name;
+$oci_pass = $row->password;
+
+
+
+if (isset($_GET)) {
+
+    if ($_GET['func'] == 'srch') {
+
+        $tns1 = '(DESCRIPTION =  (ADDRESS = (PROTOCOL = TCP)(HOST = 10.18.4.73)(PORT = 1521)) (CONNECT_DATA =  (SERVER = DEDICATED)   (SID = prodi01) ))';
+        $conns = oci_connect('miss','miss',$tns1) or die ('ERR');
+
+        //check for user in m08 if user is not here user needs to update details at HR
+
+        //$data = array();
+        $pnum = $_GET['uid1'];
+        //ECHO $pnum;
+        $sql = sprintf("select count(personnel_number) as cnt from miss.m08v_curr_personnel_detail where personnel_number = '%s'",$pnum);
+        //ECHO $sql;
+        $result = oci_parse($conns, $sql);
+        oci_execute($result);
+        $row = oci_fetch_object($result);
+        $cnt = $row->CNT;
+
+
+
+        //echo $cnt;
+
+        if(intval($cnt) == 0) {
+            //goes to js file and gives message for user to update details at HR
+            echo "0";
+            exit();
+
+        }
+        //if an entry was found in the m08
+        else if(intval ($cnt) >= 1)
+        {
+            //echo $cnt;
+            $tns1 = '(DESCRIPTION =  (ADDRESS = (PROTOCOL = TCP)(HOST = 10.18.4.73)(PORT = 1521)) (CONNECT_DATA =  (SERVER = DEDICATED)   (SID = prodi01) ))';
+            $conn = oci_connect('dirxml','dirxml',$tns1) or die ('ERR');
+            $conns = oci_connect('miss','miss',$tns1) or die ('ERR');
+            $data = array();
+            $stno = $_GET['uid1'];
+            //check if user is in adstaffinfo
+            $sql2 = sprintf("select count(staffno) from dirxml.adstaffinfo  where staffno = '%s'", $stno);
+            $result2 = oci_parse($conn, $sql2);
+            oci_execute($result2);
+            $row2 = oci_fetch_object($result2);
+            $cnt2 = $row2->CNT;
+
+            //if user is not in adstaffinfo
+            if(intval($cnt2) == 0) {
+                //check in m08 if staff member is an exclusion case
+                $sql3 = sprintf("select COUNT(personnel_number) from miss.m08v_curr_personnel_detail x
+               where x.appointment_names not like '%CLAIM ACAD 25%'
+                and x.appointment_names not like '%CLAIM ACAD<24%'
+                and x.appointment_names not like '%CLAIM STUD<24%'
+                and x.appointment_names not like '%MODERATOR%'
+                and x.appointment_names not like '%INVIG<24%'
+                and x.appointment_names not like '%CLAIM ADMIN 25%'
+                and personnel_number = '%s'", $stno);
+                $result2 = oci_parse($conns, $sql3);
+                oci_execute($result2);
+                $row3 = oci_fetch_object($result2);
+                $cnt3 = $row3->CNT;
+
+                //get excluded staff information from staffinfo view
+                $sql = sprintf("select staffno, login_name, username, email from dirxml.staffinfo where staffno = '%s'",$stno);
+                $result = oci_parse($conn,$sql);
+                //echo $sql;
+                oci_execute($result);
+                $row = oci_fetch_object($result);
+                $data[] =  $row->STAFFNO.";".$row->LOGIN_NAME.";".$row->USERNAME.";".$row->EMAIL;
+
+                oci_close($conn);
+                // $data = array();
+                echo json_encode($data);
+                if(intval($cnt3 ==0)){
+                    $sql4 = sprintf("select staffno from dirxml.staffxrules  where staffno = '%s'", $stno);
+                    $result4 = oci_parse($conns, $sql4);
+                    oci_execute($result4);
+                    $row4 = oci_fetch_object($result4);
+                    $cnt4 = $row2->CNT;
+                    if(intval($cnt4) == 0) {
+                        //Call Procedure to insert a record
+                    }
+
+                }
+
+
+            }elseif (intval($cnt2)>=1) {
+
+                echo 1;
+                exit();
+            }
+
+
+        }
+    }
+}
+
+
+
+
+
+
+
+//get pin
+
+if ($_GET['func'] == 'getpass') {
+
+    $tns = '(DESCRIPTION =  (ADDRESS = (PROTOCOL = TCP)(HOST = 10.18.4.73)(PORT = 1521)) (CONNECT_DATA =  (SERVER = DEDICATED)   (SID = prodi01) ))';
+    $conn2 = oci_connect('dirxml','dirxml',$tns) or die ('ERR');
+    $data = array();
+    $snum = $_GET['stdno'];
+    $reques = $_GET['req'];
+
+    $sql3 = sprintf("select email from dirxml.staffinfo where staffno = %d",$reques );
+    $result3 = oci_parse($conn2,$sql3);
+    oci_execute($result3);
+    $row3 = oci_fetch_object($result3);
+    //echo $row3->EMAIL;
+    if($row3->EMAIL){
+
+        $sql2 = sprintf("select username,adpassword from dirxml.staffinfo where staffno = %d",$snum );
+        $result2 = oci_parse($conn2,$sql2);
+        oci_execute($result2);
+        $row2 = oci_fetch_object($result2);
+        echo $row2->ADPASSWORD.','.$row2->USERNAME;
+        // oci_close($conn);
+        // $data = array();
+        // echo json_encode($data);
+        // echo $passs;
+        $sendTo = array();
+        $sendTo[] = $row3->EMAIL;
+        $addresses = serialize($sendTo);
+        $details .= 'This is an automatic generated message from the OPA system. Please do not reply to this message as it is an unattended Mailbox.<br /><br />';
+        $details .= 'Below please find your temporal ADS Password.<br /><br />';
+        $details .= 'Please NOTE this Password is temporal and you will need to change it to your permanent personal password at the labs.<br /><br />';
+        $details .= 'Keep you Password safe to prevent unauthorised access of your credentials.<br /><br />';
+        $details .= '<br /><br />';
+        $details .= 'Your ADS temporal Password is: '.$row->USERNAME;
+        $details .= 'Your ADS temporal Password is: '.$row2->ADPASSWORD;
+        sendMail($addresses,'ADS Password Request',$details);
+        // echo json_encode($data);
+        // echo $passs;
+    }else {
+        echo '0';}
+}
+
+
+if ($_GET['func'] == 'getemail') {
+
+    $tns = '(DESCRIPTION =  (ADDRESS = (PROTOCOL = TCP)(HOST = 10.18.4.73)(PORT = 1521)) (CONNECT_DATA =  (SERVER = DEDICATED)   (SID = prodi01) ))';
+    $conn2 = oci_connect('dirxml','dirxml',$tns) or die ('ERR');
+    $data = array();
+
+    $reques = $_GET['reqs'];
+
+    $sql3 = sprintf("select email from dirxml.adstaffinfo where staffno = %d",$reques );
+    $result3 = oci_parse($conn2,$sql3);
+    oci_execute($result3);
+    $row3 = oci_fetch_object($result3);
+    $email = $row3->EMAIL;
+
+    if($email){
+        echo $email;
+    } else{echo '0';}
+
+    oci_close($conn);
+    // $data = array();
+    //echo json_encode($data);
+
+}
+
+exit();
+?>

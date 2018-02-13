@@ -1,0 +1,26 @@
+
+                         <label class="input_label">Campus:</label>
+                        <select name="campus" id="staff-campus" size="1" class="input_select" style="width: 200px;" />
+                        <?php
+                        $dbo->setQuery("select PCAMPUSCODE,PCAMPUS from structure.campus_v order by PCAMPUS");
+                        $result = $dbo->loadObjectList();
+                        foreach($result as $row){
+                            echo "<option value='".$row->PCAMPUS."'>".$row->PCAMPUS."</option>";
+                        }
+                        ?>
+                        </select><br/>
+
+
+
+
+
+    
+    
+ 
+
+
+
+
+
+   //AD NOT STAFF INFO JQUERY
+
