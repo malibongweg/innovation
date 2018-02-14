@@ -11,6 +11,7 @@ $doc->addScript("scripts/json.js");
 
 ?>
 <!--Define app name here-->
+<!--What does Wandisa mean in Chinese-->
 <form id="app-details">
 <input type="hidden" id="app-name" value="Hotbox - Staff Data" />
 <input type="hidden" id="app-url" value="<?php $uri = parse_url(JURI::current()); echo $uri['path'];  ?>" />
