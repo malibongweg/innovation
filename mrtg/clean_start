@@ -1,3 +1,0 @@
-cd /var/www/html/scripts/mrtg
-rm temp_bellville.rrd -f
-/usr/bin/php temp_bellville_createdb.php

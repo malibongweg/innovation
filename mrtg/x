@@ -1,2 +1,0 @@
-rrdtool graph temp_bellville.rrd  --vertical-label="Celciusi/Percent" --lower=0 --height=350 DEFtemp=/var/www/html/scripts/mrtg/temp_bellville.rrdtempAVERAGE DEFhumi=/var/www/html/scripts/mrtg/temp_bellville.rrdhumiAVERAGE
-
